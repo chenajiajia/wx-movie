@@ -16,6 +16,7 @@
         <block wx:for="{{inTheaters.movies}}" wx:for-item="item">
           <template is="movie-grid-template" data="{{...item}}" />
         </block>
+
       </scroll-view>
     </view>
   </view>
