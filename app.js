@@ -8,6 +8,7 @@ App({
                 that.globalData.windowHeight = res.windowHeight;
             }
         });
+        this.getUserInfo();
     },
     getUserInfo: function (cb) {
         var that = this;

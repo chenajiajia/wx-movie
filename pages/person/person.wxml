@@ -1,0 +1,171 @@
+<!--pages/mine/mine.wxml-->
+<view class="container">
+  <scroll-view scroll-y class="content">
+    <view class="header">
+      <image class="icon" src="{{userInfo.avatarUrl}}"></image>
+      <!-- <text>{{userInfo.nickName}}</text> -->
+      <view class='pointgroup'>
+      <text class='font12'>{{userInfo.nickName}}</text>
+     
+       <view bindtap="toMyScores" class="btn buypoint">修改昵称</view>
+      </view>
+    </view>
+    <view class="integral">
+      <view class="order mt10">
+      <view class="order-all-header" bindtap='toOrderState' data-state="0">
+        <view class="fl">
+          <text>我的收藏</text>
+        </view>
+        <view class="fr" >
+          <text>查看收藏的视频</text>
+         
+        </view>
+      </view>
+    </view>
+   </view>
+   
+    <view class="setting mt10">
+       <!-- <view class="receptacle bt">
+          <view class="col-item">
+            <text class="fl">我的收藏</text>
+            <image class="fr col-item-icon" src="/img/me/right.png"></image>
+          </view>
+        </view> -->
+        <view class="receptacle bt" bindtap="tofavorite">
+          <view class="col-item">
+            <text class="fl">偏好设置</text>
+            <image class="fr col-item-icon" src="/res/images/right.png"></image>
+          </view>
+        </view>
+        <view class="receptacle bt" bindtap="saosao">
+          <view class="col-item">
+            <text class="fl">扫一扫</text>
+            <image class="fr col-item-icon" src="/res/images/right.png"></image>
+          </view>
+        </view> 
+        <view class="receptacle bt">
+          <view class="col-item" bindtap="toAddress">
+            <text class="fl">地址管理</text>
+            <image class="fr col-item-icon" src="/res/images/right.png"></image>
+          </view>
+        </view>
+         <view class="receptacle " bindtap="changePassword">
+          <view class="col-item">
+            <text class="fl">修改支付密码</text>
+            <image class="fr col-item-icon" src="/res/images/right.png"></image>
+          </view>
+        </view>
+        <!-- <view class="receptacle">
+          <view class="col-item">
+            <text class="fl">积分商城</text>
+            <image class="fr col-item-icon" src="/img/me/right.png"></image>
+          </view>
+        </view> -->
+    </view>
+    <view class="server">
+       <!-- <view class="receptacle bt" bindtap="changePassword">
+          <view class="col-item">
+            <text class="fl">修改支付密码</text>
+            <image class="fr col-item-icon" src="/img/me/right.png"></image>
+          </view>
+        </view>
+         <view class="receptacle bt">
+          <view class="col-item">
+            <text class="fl">意见反馈</text>
+          </view>
+        </view>
+        <view class="receptacle bt">
+          <view class="col-item">
+            <text class="fl">关于我们</text>
+          </view>
+        </view> -->
+         <view class="receptacle">
+          <view class="col-item" bindtap="phoneCall">
+            <text class="fl">意见反馈</text>
+            <!-- <view class='fr'>
+             <text class=" iphone-code">0758-2558848</text>
+             <image class="fr col-item-icon" src="/img/me/right.png"></image>
+             </view> -->
+          </view>
+        </view>
+    </view>
+  </scroll-view>
+  
+</view>
+  <view class="alertBox" wx:if="{{alert}}">
+    <view class="alertBox-title">
+      {{alert_box.alert_title}}
+    </view>
+    <view class="alertBox-content">
+      <template is="template_element" data="{{...alert_box}}"></template>
+    </view>
+    <view class="alertBox-footer">
+      <view class="alertBox-cancel" bindtap="hideAlert">
+        {{alert_box.cancel}}
+      </view>
+      <view class="alertBox-confirm" bindtap="startChangePassword">
+        {{alert_box.confirm}}
+      </view>
+    </view>
+  </view>
+  <view class="alertBoxBg" wx:if="{{alert}}"></view>
+
+  <!-- alertBox内容模板开始  -->
+    <template name="template_content">
+      <view class="alertBox-container">
+        <text>{{tp.content}}</text>
+      </view>
+    </template>
+    <template name="template_element">
+      <view class="alertBox-container">
+        <view class="input">
+          <label>手机号码：</label>
+          <input type="number" placeholder-style="font-size: 12px" bindinput="inMobile" value="{{tp.mobile?tp.mobile:''}}" placeholder="请输入你的手机号码" />
+        </view>
+        <view class="input mobile">
+           <label>短信验证码：</label>
+           <input type="digit" bindinput="inCode" maxlength="6" />
+           <button bindtap="getVerificationCode" class="{{isTime?'disabled':''}}">获取验证码{{isTime?'('+time+')':''}}</button>
+        </view>
+        <view class="input">
+           <label>新密码：</label>
+           <input type="digit"  bindinput="newPassWord" password="true" maxlength="6" />
+        </view>
+      </view>
+    </template>
+  <!-- alertBox内容模板结束  -->
+
+  <view class="payPass" wx:if="{{pay}}">
+        <view class="pas-title">
+          <text>请输入新的支付密码</text>
+        </view>
+        <view class="pas-num">
+          <text wx:if="{{money}}">{{money}}汇币</text>
+        </view>
+        <view class="pas-box">
+          <view class="box-six">
+            <input class="pas-input" type="digit" maxlength="6" focus="false" bindinput="bindHideKeyboard"></input>
+            <view class="six">
+              <text class="i {{len==0?'active':''}}">
+                <text class="b" wx:if="{{len>0}}"></text>
+              </text>
+              <text class="i {{len==1?'active':''}}">
+                <text class="b" wx:if="{{len>1}}"></text>
+              </text>
+              <text class="i {{len==2?'active':''}}">
+                <text class="b" wx:if="{{len>2}}"></text>
+              </text>
+              <text class="i {{len==3?'active':''}}">
+                <text class="b" wx:if="{{len>3}}"></text>
+              </text>
+              <text class="i {{len==4?'active':''}}">
+                <text class="b" wx:if="{{len>4}}"></text>
+              </text>
+              <text class="i {{len==5?'active':''}}">
+                <text class="b" wx:if="{{len>5}}"></text>
+              </text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="paybg" wx:if="{{pay}}"></view>

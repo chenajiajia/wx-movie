@@ -1,0 +1,45 @@
+/* pages/person/favorite/favorite.wxss */
+.receptacle{
+  background-color: #fff;
+  margin-top: 10px;
+}
+.header{
+  border-top:1px solid #eee;
+  border-bottom:1px solid #eee;
+  min-height: 30px;
+  font-size:17px;
+  line-height: 30px;
+  padding-left: 10px;
+  width:100%
+}
+.flex{  
+  flex-direction: column;  
+}  
+.flex .item{  
+  flex: 1;  
+  display: inline-block;
+  padding: 10px;
+}  
+  
+.service_selection {  
+  padding: 15px 10px;  
+  background: #fff;  
+}  
+  
+.service_selection label {  
+  background: #f0f1ec;  
+  padding: 6px 7px;  
+  font-size: 12px;  
+  border-radius: 4px;  
+}  
+  
+.service_selection .is_checked {  
+  border: 1px solid #fe0002;  
+  color: #fe0002;  
+  background: #fff;  
+}  
+.button{
+  position: fixed;
+  bottom:20px;
+  left:100px;
+}

@@ -4,17 +4,14 @@
 		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
-		"minified": true
+		"minified": true,
+		"newFeature": true
 	},
-	"compileType": "weapp",
+	"compileType": "miniprogram",
 	"libVersion": "1.5.4",
 	"appid": "wxa4123ad325278cdf",
-	"projectname": "lll",
+	"projectname": "wx-movie",
 	"condition": {
-		"weapp": {
-			"current": -1,
-			"list": []
-		},
 		"search": {
 			"current": -1,
 			"list": []
@@ -22,6 +19,23 @@
 		"conversation": {
 			"current": -1,
 			"list": []
+		},
+		"miniprogram": {
+			"current": 1,
+			"list": [
+				{
+					"id": -1,
+					"name": "个人",
+					"pathName": "pages/person/person",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "偏好设置",
+					"pathName": "pages/person/favorite/favorite",
+					"query": ""
+				}
+			]
 		}
 	}
 }
