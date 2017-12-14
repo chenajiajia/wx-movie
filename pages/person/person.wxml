@@ -12,7 +12,7 @@
        <!-- <view bindtap="toMyScores" class="btn buypoint">修改昵称</view> -->
       </view>
     </view>
-    <view class="integral">
+    <view class="integral" bindtap='tofavorite'>
       <view class="order mt10">
       <view class="order-all-header" bindtap='toOrderState' data-state="0">
         <view class="fl">

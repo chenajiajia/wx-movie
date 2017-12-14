@@ -10,7 +10,8 @@
     "pages/movie/movie-detail/movie-poster/movie-poster",
     "pages/person/person",
     "pages/person/favorite/favorite",
-    "pages/subscribe/subscribe"
+    "pages/subscribe/subscribe",
+    "pages/person/collect/collect"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",
