@@ -9,7 +9,8 @@
     "pages/movie/movie-detail/celebrity/celebrity",
     "pages/movie/movie-detail/movie-poster/movie-poster",
     "pages/person/person",
-    "pages/person/favorite/favorite"
+    "pages/person/favorite/favorite",
+    "pages/subscribe/subscribe"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",
@@ -29,7 +30,7 @@
       {
         "iconPath": "res/images/collect.png",
         "selectedIconPath": "res/images/collect1.png",
-        "pagePath": "pages/movie/movie",
+        "pagePath": "pages/subscribe/subscribe",
         "text": "订阅"
       },
       {

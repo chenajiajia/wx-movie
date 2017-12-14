@@ -1,0 +1,11 @@
+<!--pages/subscribe/subscribe.wxml-->
+
+<view>
+  <view wx:for="{{subscribe}}" class='item'>
+   <image class="poster" src="{{item.image}}"></image>
+   <view class='item-right'>
+      <text class='text'>{{item.title}}</text>
+      <text class='text update'> 更新至第20集</text>
+   </view>
+  </view>
+</view>
