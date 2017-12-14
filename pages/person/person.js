@@ -6,6 +6,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    collect:[
+      { title: "寻梦环游记", images: { medium: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2503997609.jpg"}},
+      { title: "寻梦环游记", images: { medium: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2503997609.jpg" } }
+      , { title: "寻梦环游记", images: { medium: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2503997609.jpg" } },
+      { title: "寻梦环游记", images: { medium: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2503997609.jpg" } }
+    ],
     userInfo:null
   },
   tofavorite:function(){

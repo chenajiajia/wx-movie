@@ -7,7 +7,7 @@
       <image class="poster" src="{{images.medium}}"></image>
       <text class="name">{{title}}</text>
       <template is="rating-template" data="{{rating}}" />
-      <text class="wish-count">{{collect_count}}人想看</text>
+      <!-- <text class="wish-count">{{collect_count}}人想看</text> -->
     </view>
   </view>
 </template>
