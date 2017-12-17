@@ -8,27 +8,73 @@ App({
                 that.globalData.windowHeight = res.windowHeight;
             }
         });
-        this.getUserInfo();
+       // this.getUserInfo();
     },
     getUserInfo: function (cb) {
         var that = this;
-        if (this.globalData.userInfo) {
-            typeof cb == "function" && cb(this.globalData.userInfo);
-        } else {
-            //调用登录接口
-            wx.login({
-                success: function () {
+        var id = '';
+        // if (this.globalData.userInfo) {
+        //     typeof cb == "function" && cb(this.globalData.userInfo);
+        // } else {
+        //     //调用登录接口
+        //     wx.login({
+        //         success: function () {
+        //             wx.getUserInfo({
+        //                 success: function (res) {
+        //                     that.globalData.userInfo = res.userInfo;
+        //                     typeof cb == "function" && cb(that.globalData.userInfo);
+        //                 }
+        //             })
+        //         }
+        //     });
+        // }
+        wx.login({
+          success:function(res){
+            
+            if (res.code) {
+              //发起网络请求
+              wx.request({
+                url: 'http://127.0.0.1:5000/getOpenId',
+                data: {
+                  code: res.code
+                },
+                success:function(res){
+                  console.log(res)
+                   id = res.data.data.openid
+                   wx.setStorageSync('openId', id)
+                   console.log(wx.getStorageSync('openId'))
                     wx.getUserInfo({
-                        success: function (res) {
-                            that.globalData.userInfo = res.userInfo;
-                            typeof cb == "function" && cb(that.globalData.userInfo);
-                        }
+                      success:function(res){
+                        var nickName = res.userInfo.nickName
+                        var gender = res.userInfo.gender
+                        var city = res.userInfo.city
+                        var avatarUrl = res.userInfo.avatarUrl
+                        
+                        console.log(id)
+                        wx.request({
+                          url: "http://127.0.0.1:5000/login",
+                          data: { "id": id, "nickName": nickName, "gender": gender, "city": city,"avatarUrl":avatarUrl},
+                          success:function(res){
+                            wx.setStorage({
+                              key: 'userInfo',
+                              data: res.data,
+                            })
+                          }
+                        })
+                      }
                     })
                 }
-            });
-        }
+              })
+            } else {
+              console.log('获取用户登录态失败！' + res.errMsg)
+            }
+         
+          }
+          
+        })
     },
     globalData: {
+        code:'',
         userInfo: null,
         windowWidth: 0,
         windowHeight: 0,
