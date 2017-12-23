@@ -2,7 +2,7 @@
 <!--pages/movie/movie-detail/movie-detail.wxml-->
 <view class="container">
   <view class="session-poster session-poster-spacing">
-    <image class="poster" src="{{movie.images.large}}" bindtap="bindPoster" data-poster-url="{{movie.images.large}}"></image>
+    <image class="poster" src="{{movie.images}}" bindtap="bindPoster" data-poster-url="{{movie.images}}"></image>
   </view>
   <view class="summary-session">
     <view class="movie-summary">
@@ -12,16 +12,16 @@
       <text class="countries">{{movie.countries}}</text>
     </view>
     <view class="movie-rating">
-      <text class="average">{{movie.rating.average}}</text>
+      <text class="average">{{movie.rating}}</text>
       <view class="rating">
         <view class="rating-star allstar{{movie.rating.average | 0}}"></view>
       </view>
-      <text class="ratings_count">{{movie.ratingsCount}}</text>
+      <text class="ratings_count">评分</text>
     </view>
   </view>
   <view class="wish-do-session">
-    <text class="wish-btn" catchtap="handleWishtap">想看</text>
-    <text class="do-btn" data-id="{{movie.id}}" catchtap="handleDotap">看过</text>
+    <text class="wish-btn" data-id="{{movie.id}}" catchtap="handleWishtap">订阅</text>
+    <text class="do-btn" data-id="{{movie.id}}" catchtap="handleDotap">收藏</text>
   </view>
   <view class="desc-session">
     <text class="title">简介</text>

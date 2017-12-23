@@ -4,12 +4,12 @@
 <template name="movie-list-template">
   <view class="movie-wrapper" bindtap="bindMovieDetail" data-id="{{id}}">
     <view class="movie-content">
-      <image class="poster" src="{{images.medium}}"></image>
+      <image class="poster" src="{{cover}}"></image>
       <view class="movie-summary">
         <text class="name">{{title}}</text>
-        <text class="directors">导演：{{directors}}</text>
-        <text class="casts">主演：{{casts}}</text>
-        <text class="genres">类型：{{genres}}</text>
+        <text class="directors">导演：{{director}}</text>
+        <text class="casts">主演：{{actor}}</text>
+        <text class="genres">类型：{{category}}</text>
         <template is="rating-template" data="{{rating}}" />
         <text class="wish-count" style="color:#9bdff9;">{{collectCount}}人订阅</text>
       </view>

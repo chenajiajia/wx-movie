@@ -2,24 +2,25 @@
 var app = getApp();
 Page({
   data: {
-    tabIntheaters: "intheaters",
-    showIntheaters: true,
-    showComingSoon: false,
-    tabComingsoon: "comingsoon",
-    acquireIntheaters: false,
-    acquireComingsoon: false,
-    intheaters: {},
-    comingsoon: {},
+    total:10000,
+    tabMovie: "movie",
+    showMovie: true,
+    showSeries: false,
+    tabSeries: "series",
+    acquireMovie: false,
+    acquireSeries: false,
+    movie: {},
+    series: {},
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;
     var typeId = options.typeId;
     var readyData = {};
-    if (typeId == "intheaters") {
-      readyData = { "showIntheaters": true, "showComingSoon": false, "acquireIntheaters": true };
+    if (typeId == "movie") {
+      readyData = { "movie": true, "series": false, "acquireMovie": true };
     } else {
-      readyData = { "showIntheaters": false, "showComingSoon": true, "acquireComingsoon": true };
+      readyData = { "movie": false, "series": true, "acquireSeries": true };
     }
     readyData["windowWidth"] = app.globalData.windowWidth;
     readyData["windowHeight"] = app.globalData.windowHeight;
@@ -40,11 +41,11 @@ Page({
   },
   /** 通过typeId获取url */
   getURLByTypeId: function (typeId) {
-    var url = app.globalData.doubanBase;
-    if (typeId == "intheaters") {
-      url += app.globalData.inTheaters;
+    var url = app.globalData.BaseUrl;
+    if (typeId == "movie") {
+      url += app.globalData.movie;
     } else {
-      url += app.globalData.comingSoon;
+      url += app.globalData.series;
     }
     return url;
   },
@@ -66,54 +67,57 @@ Page({
       url: url,
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       data: {
-        start: offset,
-        count: 5
+        start: offset/10,
       },
       header: { 'content-type': 'json' }, // 设置请求的 header
       success: function (res) {
-        var subjects = res.data.subjects;
+        var subjects = res.data.data;
         var movies = that.data[typeId].movies || [];
         var offset = that.data[typeId].offset || 0;
-        var total = res.data.total;
+        //var total = res.data.total;
         offset += subjects.length;
-        for (let idx in subjects) {
-          var subject = subjects[idx];
-          var directors = "";
-          for (let i in subject.directors) {
-            directors += subject.directors[i].name;
-          }
-          var casts = "";
-          var separate = " / ";
-          for (let j in subject.casts) {
-            casts += subject.casts[j].name + separate;
-          }
-          casts = casts.substring(0, casts.length - separate.length);
-
-          var genres = "";
-          for (let k in subject.genres) {
-            genres += subject.genres[k] + separate;
-          }
-          genres = genres.substring(0, genres.length - separate.length);
-          var temp = {
-            id: subject.id,
-            title: subject.title,
-            rating: subject.rating,
-            collectCount: subject.collect_count,
-            images: subject.images,
-            subtype: subject.subtype,
-            directors: directors,
-            genres: genres,
-            casts: casts,
-            typeId: typeId,
-            year: subject.year
-          };
-          movies.push(temp);
+       
+        for(let item in subjects){
+          movies.push(subjects[item])
         }
+        // for (let idx in subjects) {
+        //   var subject = subjects[idx];
+        //   var directors = "";
+        //   for (let i in subject.directors) {
+        //     directors += subject.directors[i].name;
+        //   }
+        //   var casts = "";
+        //   var separate = " / ";
+        //   for (let j in subject.casts) {
+        //     casts += subject.casts[j].name + separate;
+        //   }
+        //   casts = casts.substring(0, casts.length - separate.length);
+
+        //   var genres = "";
+        //   for (let k in subject.genres) {
+        //     genres += subject.genres[k] + separate;
+        //   }
+        //   genres = genres.substring(0, genres.length - separate.length);
+        //   var temp = {
+        //     id: subject.id,
+        //     title: subject.title,
+        //     rating: subject.rating,
+        //     collectCount: subject.collect_count,
+        //     images: subject.images,
+        //     subtype: subject.subtype,
+        //     directors: directors,
+        //     genres: genres,
+        //     casts: casts,
+        //     typeId: typeId,
+        //     year: subject.year
+        //   };
+        //   movies.push(temp);
+        // }
         var readyData = {};
         readyData[typeId] = {
           categoryType: typeId,
           offset: offset,
-          total: total,
+          //total: total,
           movies: movies
         }
         that.setData(readyData);
@@ -132,19 +136,19 @@ Page({
     var that = this;
     var tabId = event.currentTarget.dataset.tabId;
     var readyData = {};
-    if (tabId == "intheaters") {
-      console.log("intheaters");
-      readyData = { "showIntheaters": true, "showComingSoon": false };
-      if (!that.data.acquireIntheaters) {
-        readyData["acquireIntheaters"] = true;
+    if (tabId == "movie") {
+      console.log("movie");
+      readyData = { "showMovie": true, "showSeries": false };
+      if (!that.data.acquireMovie) {
+        readyData["acquireMovie"] = true;
         that.getMovieListData(tabId);
       }
       this.setData(readyData);
-    } else if (tabId == "comingsoon") {
-      console.log("comingsoon");
-      readyData = { "showIntheaters": false, "showComingSoon": true };
-      if (!that.data.acquireComingsoon) {
-        readyData["acquireComingsoon"] = true;
+    } else if (tabId == "series") {
+      console.log("series");
+      readyData = { "showMovie": false, "showSeries": true };
+      if (!that.data.acquireSeries) {
+        readyData["acquireSeries"] = true;
         that.getMovieListData(tabId);
       }
       that.setData(readyData);
@@ -163,10 +167,10 @@ Page({
   handleLower: function (event) {
     console.log("handleLower");
     var typeId = "";
-    if (this.data.showIntheaters) {
-      typeId = "intheaters";
+    if (this.data.showMovie) {
+      typeId = "movie";
     } else {
-      typeId = "comingsoon";
+      typeId = "series";
     }
     this.getMovieListData(typeId);
   },

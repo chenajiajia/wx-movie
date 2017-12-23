@@ -8,7 +8,7 @@ App({
                 that.globalData.windowHeight = res.windowHeight;
             }
         });
-       // this.getUserInfo();
+        this.getUserInfo();
     },
     getUserInfo: function (cb) {
         var that = this;
@@ -34,7 +34,7 @@ App({
             if (res.code) {
               //发起网络请求
               wx.request({
-                url: 'http://127.0.0.1:5000/getOpenId',
+                url: 'http://127.0.0.1:5000/user/getOpenId',
                 data: {
                   code: res.code
                 },
@@ -52,7 +52,7 @@ App({
                         
                         console.log(id)
                         wx.request({
-                          url: "http://127.0.0.1:5000/login",
+                          url: "http://127.0.0.1:5000/user/login",
                           data: { "id": id, "nickName": nickName, "gender": gender, "city": city,"avatarUrl":avatarUrl},
                           success:function(res){
                             wx.setStorage({
@@ -78,14 +78,15 @@ App({
         userInfo: null,
         windowWidth: 0,
         windowHeight: 0,
-        doubanBase: "https://api.douban.com",
-        inTheaters: "/v2/movie/in_theaters",
-        comingSoon: "/v2/movie/coming_soon",
+        BaseUrl: "http://127.0.0.1:5000",
+        subscribe:"/subscription/subscribe",
+        movie: "/movie/getMovies",
+        series: "/movie/getTv",
         top250: "/v2/movie/top250",
         weekly: "/v2/movie/weekly",
         usBox: "/v2/movie/us_box",
         newMovies: "/v2/movie/new_movies",
-        subject: "/v2/movie/subject/",
+        subject: "/movie/getSubjectDetail",
         celebrity: "/v2/movie/celebrity/",
         search: "/v2/movie/search?q="
     }

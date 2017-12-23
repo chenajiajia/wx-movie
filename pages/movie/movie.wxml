@@ -23,11 +23,11 @@
   <view class="page-session page-session-spacing">
     <view class="session-header">
       <text class="session-header-title">电影</text>
-      <text class="session-header-more" bindtap="bindMore" data-type-id="comingsoon">更多</text>
+      <text class="session-header-more" bindtap="bindMore" data-type-id="movie">更多</text>
     </view>
     <view class="session-content session-content-spacing">
       <scroll-view class="movie-scroll" scroll-x="true">
-        <block wx:for="{{comingSoon.movies}}" wx:for-item="item">
+        <block wx:for="{{movie.movies}}" wx:for-item="item">
           <template is="movie-grid-template" data="{{...item}}" />
         </block>
       </scroll-view>
@@ -36,11 +36,12 @@
   <view class="page-session page-session-spacing">
     <view class="session-header">
       <text class="session-header-title">电视剧</text>
+      <text class="session-header-more" bindtap="bindMore" data-type-id="series">更多</text>
     </view>
     <view class="session-content session-content-spacing">
-      <scroll-view class="selected-scroll" scroll-x="true">
-        <block wx:for="{{[top250, weekly, newMovie, usBox]}}" wx:for-item="selected">
-          <template is="selected-grid-template" data="{{selected}}" />
+      <scroll-view class="movie-scroll" scroll-x="true">
+        <block wx:for="{{series.movies}}" wx:for-item="item">
+          <template is="movie-grid-template" data="{{...item}}" />
         </block>
       </scroll-view>
     </view>

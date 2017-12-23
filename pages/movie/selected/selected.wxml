@@ -10,7 +10,7 @@
             <text class="selected-index">{{index + 1}}</text>
           </view>
           <view class="selected-movie-content selected-movie-content">
-            <image class="poster" src="{{item.images.medium}}"></image>
+            <image class="poster" src="{{item.images}}"></image>
             <view class="movie-summary">
               <text class="name">{{item.title}}</text>
               <block for="{{[item.rating]}}" for-item="item">

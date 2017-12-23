@@ -15,11 +15,11 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    var inTheatersURL = app.globalData.doubanBase + app.globalData.inTheaters + "?start=0&&count=10";
-    var comingSoonURL = app.globalData.doubanBase + app.globalData.comingSoon + "?start=0&&count=10";
+    var moviewURL = app.globalData.BaseUrl + app.globalData.movie + "?start=0"
+    var seriesURL = app.globalData.BaseUrl + app.globalData.series + "?start=0"
 
-    this.getMovieListData(inTheatersURL, "inTheaters", "影院热映");
-    this.getMovieListData(comingSoonURL, "comingSoon", "即将上映");
+    this.getMovieListData(moviewURL, "movie", "电影");
+    this.getMovieListData(seriesURL, "series", "电视剧");
   },
   onReady: function () {
     // 页面渲染完成
@@ -51,8 +51,14 @@ Page({
       }, // 设置请求的 header
       success: function (res) {
         // 组装电影数据
-        var data = res.data;
-        that.processMovieListData(data, settedKey, categoryTitle);
+        var data = res.data.data;
+        // that.processMovieListData(data, settedKey, categoryTitle);
+           var readyData = {};
+       readyData[settedKey] = {
+       categoryTitle: categoryTitle,
+       movies: data
+     };
+     that.setData(readyData);
       },
       fail: function () {
         // fail
@@ -63,50 +69,50 @@ Page({
       }
     })
   },
-  /** 组装电影数据 */
-  processMovieListData: function (data, settedKey, categoryTitle) {
-    var movies = [];
-    for (let idx in data.subjects) {
-      var subject = data.subjects[idx];
-      var showRating = false;
-      var showWish = false;
-      if ("inTheaters" == settedKey) {
-        showRating = true;
-        showWish = false;
-      } else {
-        showRating = true;
-        showWish = false;
-      }
-      var temp = {
-        id: subject.id,
-        title: subject.title,
-        rating: subject.rating,
-        collect_count: subject.collect_count,
-        images: subject.images,
-        subtype: subject.subtype,
-        directors: subject.directors,
-        casts: subject.casts,
-        year: subject.year,
-        showRating: showRating,
-        showWish: showWish
-      };
-      movies.push(temp);
-    }
-    var readyData = {};
-    readyData[settedKey] = {
-      categoryTitle: categoryTitle,
-      movies: movies
-    };
-    this.setData(readyData);
-  },
+  // /** 组装电影数据 */
+  // processMovieListData: function (data, settedKey, categoryTitle) {
+  //   var movies = [];
+  //   for (let idx in data.subjects) {
+  //     var subject = data.subjects[idx];
+  //     var showRating = false;
+  //     var showWish = false;
+  //     if ("inTheaters" == settedKey) {
+  //       showRating = true;
+  //       showWish = false;
+  //     } else {
+  //       showRating = true;
+  //       showWish = false;
+  //     }
+  //     var temp = {
+  //       id: subject.id,
+  //       title: subject.title,
+  //       rating: subject.rating,
+  //       collect_count: subject.collect_count,
+  //       images: subject.images,
+  //       subtype: subject.subtype,
+  //       directors: subject.directors,
+  //       casts: subject.casts,
+  //       year: subject.year,
+  //       showRating: showRating,
+  //       showWish: showWish
+  //     };
+  //     movies.push(temp);
+  //   }
+  //   var readyData = {};
+  //   readyData[settedKey] = {
+  //     categoryTitle: categoryTitle,
+  //     movies: movies
+  //   };
+  //   this.setData(readyData);
+  // },
   /** 滑动屏幕 */
-  handleTouchMove: function (event) {
-    var offsetTop = event.target.offsetTop;
-    console.log("handleTouchMove offsetTop: " + offsetTop);
-    if (offsetTop > 10 && !this.data.acquiredSelected) {
-      this.getSelectedListData();
-    }
-  },
+  // handleTouchMove: function (event) {
+  //   var offsetTop = event.target.offsetTop;
+  //   console.log("handleTouchMove offsetTop: " + offsetTop);
+  //   if (offsetTop > 10 && !this.data.acquiredSelected) {
+  //     this.getSelectedListData();
+  //   }
+  // },
   /** 获取电影榜单数据 */
   getSelectedListData: function () {
     var that = this;
