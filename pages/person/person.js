@@ -19,32 +19,55 @@ Page({
       url: '/pages/person/favorite/favorite',
     })
   },
+  bindMore:function(){
+    wx.navigateTo({
+      url: '/pages/person/collect/collect',
+    })
+  },
+  getCollectList:function(){
+    var that = this;
+    var id = wx.getStorageSync("openId");
+    var url = app.globalData.BaseUrl + app.globalData.getCollect;
+
+    wx.request({
+      url: url,
+      method: 'post',
+      data: { 'id': id, 'start': 0 },
+      success: function (res) {
+        that.setData({
+          collect: res.data.data
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
-    app.getUserInfo(function (userInfo) {
+   var that = this;
+    app.getUser(function (userInfo) {
       //更新数据
       console.log(userInfo);
       that.setData({
         userInfo: userInfo
       });
     })
+    this.getCollectList();
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+   
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.getCollectList();
   },
 
   /**

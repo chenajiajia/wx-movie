@@ -20,7 +20,7 @@
   <view class='header'>
     <text>选择偏好的地区</text>
   </view>
-  <checkbox-group bindchange="serviceValChange">  
+  <checkbox-group bindchange="locateValChange">  
         <view class="service_selection flex">  
           <block wx:for="{{locate}}">  
             <view class=" item">  
@@ -33,5 +33,22 @@
         </view>  
 </checkbox-group>  
 </view>
-<button class='button'>确定并保存</button>
+<view class='receptacle'>
+  <view class='header'>
+    <text>选择偏好的类别</text>
+  </view>
+  <checkbox-group bindchange="decadeValChange">  
+        <view class="service_selection flex">  
+          <block wx:for="{{decade}}">  
+            <view class=" item">  
+  
+              <label class="checkbox {{item.checked?'is_checked':''}}">  
+                <checkbox value="{{item.value}}" checked="{{item.checked}}" hidden="false" />{{item.name}}  
+              </label>  
+            </view>  
+          </block>  
+        </view>  
+</checkbox-group>  
+</view>
+<button bindtap='bindTap' class='button'>确定并保存</button>
 </view>

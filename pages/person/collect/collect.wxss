@@ -1,1 +1,28 @@
 /* pages/person/collect/collect.wxss */
+.item{
+  width: 100%;
+  min-height: 130px;
+  display: flex;
+  background: #fff;
+  border-bottom: 1px solid #efefef;
+  align-items:center;
+}
+.item .poster {
+  width: 200rpx;
+  height: 280rpx;
+  margin-left:10px;
+  
+}
+.item-right{
+  min-height: 130px;
+  padding-left:10px;
+  padding-top:10px;
+}
+.item .text{
+  display: block;
+  margin-top: 5px;
+}
+.item  .update{
+  font-size: 14px;
+  color:#7b7b7b;
+}

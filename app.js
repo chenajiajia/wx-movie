@@ -10,6 +10,24 @@ App({
         });
         this.getUserInfo();
     },
+    getUser:function(cb){
+      var that = this;
+       if (this.globalData.userInfo) {
+            typeof cb == "function" && cb(this.globalData.userInfo);
+        } else {
+            //调用登录接口
+            wx.login({
+                success: function () {
+                    wx.getUserInfo({
+                        success: function (res) {
+                            that.globalData.userInfo = res.userInfo;
+                            typeof cb == "function" && cb(that.globalData.userInfo);
+                        }
+                    })
+                }
+            });
+        }
+    },
     getUserInfo: function (cb) {
         var that = this;
         var id = '';
@@ -80,6 +98,10 @@ App({
         windowHeight: 0,
         BaseUrl: "http://127.0.0.1:5000",
         subscribe:"/subscription/subscribe",
+        getSubscribe:"/subscription/getSubscription",
+        collect: "/user/collect",
+        getCollect:'/user/getCollect',
+        favorite: '/user/setFavourite',
         movie: "/movie/getMovies",
         series: "/movie/getTv",
         top250: "/v2/movie/top250",

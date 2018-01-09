@@ -1,2 +1,11 @@
-<!--pages/person/collect/collect.wxml-->
-<text>pages/person/collect/collect.wxml</text>
+<!--pages/subscribe/subscribe.wxml-->
+
+<view>
+  <view wx:for="{{collect}}" class='item'>
+   <image class="poster" src="{{item.cover}}"></image>
+   <view class='item-right'>
+      <text class='text'>{{item.title}}</text>
+     
+   </view>
+  </view>
+</view>

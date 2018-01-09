@@ -18,14 +18,17 @@ Page({
     var typeId = options.typeId;
     var readyData = {};
     if (typeId == "movie") {
-      readyData = { "movie": true, "series": false, "acquireMovie": true };
+      readyData = { "showMovie": true, "showSeries": false, "acquireMovie": true };
     } else {
-      readyData = { "movie": false, "series": true, "acquireSeries": true };
+      readyData = { "showMovie": false, "showSeries": true, "acquireSeries": true };
     }
     readyData["windowWidth"] = app.globalData.windowWidth;
     readyData["windowHeight"] = app.globalData.windowHeight;
     this.setData(readyData);
+    wx.setStorageSync('movieOffset', -1)
+    wx.setStorageSync('seriesOffset', -1)
     that.getMovieListData(typeId);
+   
   },
   onReady: function () {
     // 页面渲染完成
@@ -54,9 +57,11 @@ Page({
     var that = this;
     var offset = that.data[typeId].offset || 0;
     var total = that.data[typeId].total || 999;
-    if (offset >= total) {
+    var typeOffset = typeId +"Offset";
+    if (offset >= total || wx.getStorageSync(typeOffset)==offset) {
       return;
     }
+    wx.setStorageSync(typeOffset, offset);
     var url = that.getURLByTypeId(typeId);
     wx.showToast({
       title: '加载中',
@@ -67,7 +72,7 @@ Page({
       url: url,
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       data: {
-        start: offset/10,
+        start: offset,
       },
       header: { 'content-type': 'json' }, // 设置请求的 header
       success: function (res) {
@@ -164,6 +169,22 @@ Page({
     });
   },
   /** 页面滑动到底部 */
+  onReachBottom: function () {
+    // Do something when page reach bottom.
+    console.log("handleLower");
+    var typeId = "";
+    if (this.data.showMovie) {
+      typeId = "movie";
+    } else {
+      typeId = "series";
+    }
+    this.getMovieListData(typeId);
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading',
+      duration: 30000
+    });
+  },
   handleLower: function (event) {
     console.log("handleLower");
     var typeId = "";
@@ -173,6 +194,11 @@ Page({
       typeId = "series";
     }
     this.getMovieListData(typeId);
+    wx.showToast({
+      title: '加载中',
+      icon: 'loading',
+      duration: 30000
+    });
   },
   /** 页面滑动到顶部 */
   handleUpper: function (event) {

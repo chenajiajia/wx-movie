@@ -106,14 +106,16 @@ Page({
     wx.request({
       url: url,
       method:"post",
+      header: { 'content-type': 'json' },
       data:{"id":openId,"movieId":id,"episode":episode},
       success:function(res){
-        if(res.status==0){
-          wx.showLoading({
+        console.log(res)
+        if(res.data.status==0){
+          wx.showToast({
             title: '已订阅',
           })
         }else{
-          wx.showLoading({
+          wx.showToast({
             title: '订阅成功',
           })
         }
@@ -123,8 +125,43 @@ Page({
           wx.showLoading({
             title: res.message,
           })
+      },
+      complete:function(){
+        //wx.hideLoading();
       }
     })
+  },
+  /** 用户点击收藏 */
+  handleCollect: function (event) {
+    var id = event.currentTarget.dataset.id;
+    var openId = wx.getStorageSync("openId");
+    var url = app.globalData.BaseUrl + app.globalData.collect;
+   wx.request({
+     url: url,
+     header: { 'content-type': 'json' },
+     data:{"id":openId,"movieId":id},
+     method:"POST",
+     success:function(res){
+       if(res.data.status==0){
+         wx.showToast({
+           title: '已收藏',
+         })
+       }else{
+         wx.showToast({
+           title: '收藏成功',
+         })
+       }
+       
+     },
+     fail:function(res){
+       wx.showToast({
+         title: res.message,
+       })
+     },
+     complete: function () {
+       //wx.hideLoading();
+     }
+   })
   },
   /** 用户点击看过 */
   handleDotap: function (event) {

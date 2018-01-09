@@ -1,22 +1,48 @@
 // pages/subscribe/subscribe.js
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    subscribe:[
-      { id: 1, title: "寻梦环游记", image:"https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2503997609.jpg"},
-      { id: 2, title: "寻梦环游记", image: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2503997609.jpg" },
-      { id: 2, title: "寻梦环游记", image: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2503997609.jpg" }
-    ]
+    offset:0,
+    subscribe:[]
   },
 
+  getSubscribeList:function(){
+    var that = this;
+    var offset = this.data.offset
+    var id = wx.getStorageSync("openId");
+    var url = app.globalData.BaseUrl + app.globalData.getSubscribe
+    wx.request({
+      url: url,
+      data: { "id": id, "start": offset },
+      method: "post",
+      success: function (res) {
+        var end = false;
+        if(res.data.data.length<10){
+          end = true;
+        }
+        var subscribe = that.data.subscribe;
+        for(let item in res.data.data){
+          subscribe.push(res.data.data[item]);
+        }
+        var offset = that.data.offset;
+        offset += res.data.data.length;
+        that.setData({
+          subscribe: subscribe,
+          offset: offset,
+          end:end
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.getSubscribeList();
   },
 
   /**
@@ -58,7 +84,11 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+      console.log('bottom');
+      if(this.data.end){
+        return;
+      }
+      this.getSubscribeList();
   },
 
   /**
