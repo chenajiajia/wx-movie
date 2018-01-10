@@ -102,6 +102,7 @@ App({
         collect: "/user/collect",
         getCollect:'/user/getCollect',
         favorite: '/user/setFavourite',
+        getFavorite:'/user/getFavourite',
         movie: "/movie/getMovies",
         series: "/movie/getTv",
         top250: "/v2/movie/top250",
