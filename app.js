@@ -105,6 +105,7 @@ App({
         getFavorite:'/user/getFavourite',
         movie: "/movie/getMovies",
         series: "/movie/getTv",
+        recommend:"/movie/getRecommend",
         top250: "/v2/movie/top250",
         weekly: "/v2/movie/weekly",
         usBox: "/v2/movie/us_box",

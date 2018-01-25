@@ -17,9 +17,11 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     var moviewURL = app.globalData.BaseUrl + app.globalData.movie + "?start=0"
     var seriesURL = app.globalData.BaseUrl + app.globalData.series + "?start=0"
+    var recommendURL = app.globalData.BaseUrl + app.globalData.recommend
 
     this.getMovieListData(moviewURL, "movie", "电影");
     this.getMovieListData(seriesURL, "series", "电视剧");
+    this.getMovieListData(recommendURL, "recommend", "推荐");
   },
   onReady: function () {
     // 页面渲染完成
@@ -41,10 +43,11 @@ Page({
       duration: 10000
     });
     var that = this;
+    var id = wx.getStorageSync("openId");
     // 请求电影数据
     wx.request({
       url: url,
-      data: {},
+      data: {id:id},
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       header: {
         "content-type": "json"

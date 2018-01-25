@@ -13,7 +13,7 @@
     </view>
     <view class="session-content session-content-spacing">
       <scroll-view class="movie-scroll" scroll-x="true">
-        <block wx:for="{{inTheaters.movies}}" wx:for-item="item">
+        <block wx:for="{{recommend.movies}}" wx:for-item="item">
           <template is="movie-grid-template" data="{{...item}}" />
         </block>
 
