@@ -9,7 +9,7 @@
   <view class="page-session page-session-spacing">
     <view class="session-header">
       <text class="session-header-title">推荐</text>
-      <text class="session-header-more" bindtap="bindMore" data-type-id="intheaters">更多</text>
+      <text class="session-header-more" bindtap="bindMore" data-type-id="recommend">更多</text>
     </view>
     <view class="session-content session-content-spacing">
       <scroll-view class="movie-scroll" scroll-x="true">

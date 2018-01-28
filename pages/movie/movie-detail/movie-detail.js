@@ -3,6 +3,8 @@ var app = getApp();
 Page({
   data: {
     showAllDesc: false,
+    sub:'',
+    col:'',
     movie: {}
   },
   onLoad: function (options) {
@@ -23,6 +25,22 @@ Page({
       header: { 'content-type': 'json' }, // 设置请求的 header
       success: function (res) {
         var data = res.data.data;
+        var sub = ''
+        var col = ''
+        if(data.sub == 1){
+            sub = '已订阅'
+        }else{
+          sub = '订阅'
+        }
+        if(data.col == 1){
+          col = '已收藏'
+        }else{
+          col = '收藏'
+        }
+        that.setData({
+          sub:sub,
+          col:col
+        })
         var readyData = {};
         // var directorsAndCasts = [];
         // for (let i in data.directors) {
@@ -104,66 +122,145 @@ Page({
     var openId = wx.getStorageSync("openId")
     var id = this.data.movie.id;
     var episode = this.data.movie.episode;
-    var url = app.globalData.BaseUrl + app.globalData.subscribe;
-    wx.request({
-      url: url,
-      method:"post",
-      header: { 'content-type': 'json' },
-      data:{"id":openId,"movieId":id,"episode":episode},
-      success:function(res){
-        console.log(res)
-        if(res.data.status==0){
-          wx.showToast({
-            title: '已订阅',
-          })
-        }else{
-          wx.showToast({
-            title: '订阅成功',
-          })
-        }
-      
-      },
-      fail:function(res){
+    
+
+    if(this.data.sub == '已订阅'){
+      var url = app.globalData.BaseUrl + app.globalData.dissubscribe;
+      this.setData({
+        sub:'订阅'
+      })
+      wx.request({
+        url: url,
+        method: "post",
+        header: { 'content-type': 'json' },
+        data: { "id": openId, "movieId": id, "episode": episode },
+        success: function (res) {
+          console.log(res)
+          if (res.data.status == 0) {
+            wx.showToast({
+              title: '取消订阅',
+            })
+          } else {
+            wx.showToast({
+              title: '取消订阅成功',
+            })
+          }
+
+        },
+        fail: function (res) {
           wx.showLoading({
             title: res.message,
           })
-      },
-      complete:function(){
-        //wx.hideLoading();
-      }
-    })
+        },
+        complete: function () {
+          //wx.hideLoading();
+        }
+      })
+    }else{
+      this.setData({
+        sub:'已订阅'
+      })
+      var url = app.globalData.BaseUrl + app.globalData.subscribe;
+      wx.request({
+        url: url,
+        method: "post",
+        header: { 'content-type': 'json' },
+        data: { "id": openId, "movieId": id, "episode": episode },
+        success: function (res) {
+          console.log(res)
+          if (res.data.status == 0) {
+            wx.showToast({
+              title: '已订阅',
+            })
+          } else {
+            wx.showToast({
+              title: '订阅成功',
+            })
+          }
+
+        },
+        fail: function (res) {
+          wx.showLoading({
+            title: res.message,
+          })
+        },
+        complete: function () {
+          //wx.hideLoading();
+        }
+      })
+    }
+
+    
   },
   /** 用户点击收藏 */
   handleCollect: function (event) {
     var id = event.currentTarget.dataset.id;
     var openId = wx.getStorageSync("openId");
-    var url = app.globalData.BaseUrl + app.globalData.collect;
-   wx.request({
-     url: url,
-     header: { 'content-type': 'json' },
-     data:{"id":openId,"movieId":id},
-     method:"POST",
-     success:function(res){
-       if(res.data.status==0){
-         wx.showToast({
-           title: '已收藏',
-         })
-       }else{
-         wx.showToast({
-           title: '收藏成功',
-         })
-       }
-       
-     },
-     fail:function(res){
-       wx.showToast({
-         title: res.message,
-       })
-     },
-     complete: function () {
-       //wx.hideLoading();
-     }
-   })
+
+    if(this.data.col == '已收藏'){
+      this.setData({
+        col:'收藏'
+      })
+      var url = app.globalData.BaseUrl + app.globalData.discollect;
+      wx.request({
+        url: url,
+        header: { 'content-type': 'json' },
+        data: { "id": openId, "movieId": id },
+        method: "POST",
+        success: function (res) {
+          if (res.data.status == 0) {
+            wx.showToast({
+              title: '已收藏',
+            })
+          } else {
+            wx.showToast({
+              title: '取消收藏成功',
+            })
+          }
+
+        },
+        fail: function (res) {
+          wx.showToast({
+            title: res.message,
+          })
+        },
+        complete: function () {
+          //wx.hideLoading();
+        }
+      })
+    }else{
+      this.setData({
+        col:'已收藏'
+      })
+      var url = app.globalData.BaseUrl + app.globalData.collect;
+      wx.request({
+        url: url,
+        header: { 'content-type': 'json' },
+        data: { "id": openId, "movieId": id },
+        method: "POST",
+        success: function (res) {
+          if (res.data.status == 0) {
+            wx.showToast({
+              title: '已收藏',
+            })
+          } else {
+            wx.showToast({
+              title: '收藏成功',
+            })
+          }
+
+        },
+        fail: function (res) {
+          wx.showToast({
+            title: res.message,
+          })
+        },
+        complete: function () {
+          //wx.hideLoading();
+        }
+      })
+    }
+    
   },
   /** 用户点击看过 */
   handleDotap: function (event) {

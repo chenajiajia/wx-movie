@@ -6,12 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    collect:[
-      { title: "寻梦环游记", images: { medium: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2503997609.jpg"}},
-      { title: "寻梦环游记", images: { medium: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2503997609.jpg" } }
-      , { title: "寻梦环游记", images: { medium: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2503997609.jpg" } },
-      { title: "寻梦环游记", images: { medium: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2503997609.jpg" } }
-    ],
+    collect:[],
     userInfo:null
   },
   tofavorite:function(){
@@ -38,6 +33,11 @@ Page({
           collect: res.data.data
         })
       }
+    })
+  },
+  phoneCall:function(){
+    wx.makePhoneCall({
+      phoneNumber: '18818429638' //仅为示例，并非真实的电话号码
     })
   },
   /**

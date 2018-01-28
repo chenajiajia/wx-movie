@@ -107,7 +107,8 @@
 .wish-do-session  .wish-btn {
   font-size: 28rpx;
   color: #de9703;
-  padding: 10rpx 70rpx 10rpx 70rpx;
+  padding:15rpx 30rpx 15rpx 30rpx;
+
   margin-right: 80rpx;
   text-align: center;
   border-radius: 6rpx;
@@ -118,7 +119,8 @@
 .wish-do-session .do-btn {
   font-size: 28rpx;
   color: #de9703;
-  padding: 10rpx 70rpx 10rpx 70rpx;
+  padding:15rpx 30rpx 15rpx 30rpx;
+
   margin-left: 80rpx;
   text-align: center;
   border-radius: 6rpx;

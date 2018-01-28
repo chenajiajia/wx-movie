@@ -77,21 +77,21 @@ Page({
     var categoryList = [];
     var type = this.data.type;
     for (var i = 0; i < type.length; i++) {
-      if (type[i].value == 1) {
+      if (type[i].checked == true) {
         categoryList.push(type[i].name);
       } 
     }
     var locateList = [];
     var locate = this.data.locate;
     for (var i = 0; i < locate.length; i++) {
-      if (locate[i].value == 1) {
+      if (locate[i].checked == true) {
         locateList.push(locate[i].name);
       }
     }
     var decadeList = [];
     var decade = this.data.decade;
     for (var i = 0; i < decade.length; i++) {
-      if (decade[i].value == 1) {
+      if (decade[i].checked == true) {
         decadeList.push(decade[i].name);
       }
     }
@@ -155,7 +155,7 @@ Page({
         }
 
         that.setData({
-          category:category,
+          type:category,
           locate:locate,
           decade:decade
         })

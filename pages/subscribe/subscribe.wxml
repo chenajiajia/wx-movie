@@ -1,7 +1,7 @@
 <!--pages/subscribe/subscribe.wxml-->
 
 <view>
-  <view wx:for="{{subscribe}}" class='item'>
+  <view wx:for="{{subscribe}}" class='item' bindtap="bindMovieDetail" data-id="{{item.movieId}}">
    <image class="poster" src="{{item.cover}}"></image>
    <view class='item-right'>
       <text class='text'>{{item.title}}</text>

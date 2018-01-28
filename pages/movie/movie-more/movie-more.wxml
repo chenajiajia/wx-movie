@@ -3,11 +3,19 @@
 <!--pages/movie/movie-more/movie-more.wxml-->
 <view class="container">
   <view class="session-tab session-tab-spacing">
+   <text class="tab-name {{showRecommend? 'tab-selected' : 'tab-normal'}} " bindtap="bindSelected" data-tab-id="{{tabRecommend}}">推荐</text>
     <text class="tab-name {{showMovie? 'tab-selected' : 'tab-normal'}} " bindtap="bindSelected" data-tab-id="{{tabMovie}}">电影</text>
     <text class="tab-name {{showSeries ? 'tab-selected' : 'tab-normal'}}" bindtap="bindSelected" data-tab-id="{{tabSeries}}">电视剧</text>
   </view>
   <view class="session-movie session-movie-spacing">
     <view class="session-content">
+     <block wx:if="{{showRecommend}}">
+        <scroll-view class="scroll-movie" style="height:{{windowHeight}}px" scroll-y="true" bindscrolltolower="handleLower" bindscrolltoupper="handleUpper">
+          <block wx:for="{{recommend.movies}}" wx:for-item="item">
+            <template is="movie-list-template" data="{{...item}}" />
+          </block>
+        </scroll-view>
+      </block>
       <block wx:if="{{showMovie}}">
         <scroll-view class="scroll-movie" style="height:{{windowHeight}}px" scroll-y="true" bindscrolltolower="handleLower" bindscrolltoupper="handleUpper">
           <block wx:for="{{movie.movies}}" wx:for-item="item">

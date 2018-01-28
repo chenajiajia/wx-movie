@@ -3,12 +3,16 @@ var app = getApp();
 Page({
   data: {
     total:10000,
+    tabRecommend:'recommend',
     tabMovie: "movie",
-    showMovie: true,
-    showSeries: false,
     tabSeries: "series",
+    showRecommend:true,
+    showMovie: false,
+    showSeries: false,
+    acquireRecommend: false,
     acquireMovie: false,
     acquireSeries: false,
+    recommend:{},
     movie: {},
     series: {},
   },
@@ -17,14 +21,18 @@ Page({
     var that = this;
     var typeId = options.typeId;
     var readyData = {};
-    if (typeId == "movie") {
-      readyData = { "showMovie": true, "showSeries": false, "acquireMovie": true };
+    if (typeId == "recommend") {
+      readyData = { "showRecommend": true, "showMovie": false, "showSeries": false,"acquireRecommend": true };
+    } 
+    else if (typeId == "movie") {
+      readyData = { "showMovie": true, "showRecommend": false, "showSeries": false, "acquireMovie": true };
     } else {
-      readyData = { "showMovie": false, "showSeries": true, "acquireSeries": true };
+      readyData = { "showSeries": true, "showMovie": false, "showRecommend": false, "acquireSeries": true };
     }
     readyData["windowWidth"] = app.globalData.windowWidth;
     readyData["windowHeight"] = app.globalData.windowHeight;
     this.setData(readyData);
+    wx.setStorageSync('recommendOffset', -1)
     wx.setStorageSync('movieOffset', -1)
     wx.setStorageSync('seriesOffset', -1)
     that.getMovieListData(typeId);
@@ -45,7 +53,11 @@ Page({
   /** 通过typeId获取url */
   getURLByTypeId: function (typeId) {
     var url = app.globalData.BaseUrl;
-    if (typeId == "movie") {
+    var id = wx.getStorageSync("openId");
+    if (typeId == "recommend") {
+      url += app.globalData.recommend+"?id="+id;
+    } 
+    else if (typeId == "movie") {
       url += app.globalData.movie;
     } else {
       url += app.globalData.series;
@@ -141,9 +153,18 @@ Page({
     var that = this;
     var tabId = event.currentTarget.dataset.tabId;
     var readyData = {};
-    if (tabId == "movie") {
+    if (tabId == "recommend") {
+      console.log("recommend");
+      readyData = { "showRecommend": true,"showMovie":false, "showSeries": false };
+      if (!that.data.acquireRecommend) {
+        readyData["acquireRecommend"] = true;
+        that.getMovieListData(tabId);
+      }
+      this.setData(readyData);
+    } 
+   else if (tabId == "movie") {
       console.log("movie");
-      readyData = { "showMovie": true, "showSeries": false };
+      readyData = { "showRecommend": false, "showMovie": true, "showSeries": false };
       if (!that.data.acquireMovie) {
         readyData["acquireMovie"] = true;
         that.getMovieListData(tabId);
@@ -151,7 +172,7 @@ Page({
       this.setData(readyData);
     } else if (tabId == "series") {
       console.log("series");
-      readyData = { "showMovie": false, "showSeries": true };
+      readyData = { "showRecommend": false, "showMovie": false, "showSeries": true };
       if (!that.data.acquireSeries) {
         readyData["acquireSeries"] = true;
         that.getMovieListData(tabId);
@@ -173,7 +194,10 @@ Page({
     // Do something when page reach bottom.
     console.log("handleLower");
     var typeId = "";
-    if (this.data.showMovie) {
+    if (this.data.showRecommend) {
+      typeId = "recommend";
+    } 
+    else if (this.data.showMovie) {
       typeId = "movie";
     } else {
       typeId = "series";
@@ -188,7 +212,10 @@ Page({
   handleLower: function (event) {
     console.log("handleLower");
     var typeId = "";
-    if (this.data.showMovie) {
+    if (this.data.showRecommend) {
+      typeId = "recommend";
+    }
+    else if (this.data.showMovie) {
       typeId = "movie";
     } else {
       typeId = "series";

@@ -98,8 +98,10 @@ App({
         windowHeight: 0,
         BaseUrl: "http://127.0.0.1:5000",
         subscribe:"/subscription/subscribe",
+        dissubscribe:"/subscription/dissubscribe",
         getSubscribe:"/subscription/getSubscription",
         collect: "/user/collect",
+        discollect:"/user/discollect",
         getCollect:'/user/getCollect',
         favorite: '/user/setFavourite',
         getFavorite:'/user/getFavourite',
@@ -112,6 +114,6 @@ App({
         newMovies: "/v2/movie/new_movies",
         subject: "/movie/getSubjectDetail",
         celebrity: "/v2/movie/celebrity/",
-        search: "/v2/movie/search?q="
+        search: "/movie/search"
     }
 })

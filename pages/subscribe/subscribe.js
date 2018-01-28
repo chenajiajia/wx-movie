@@ -38,11 +38,17 @@ Page({
       }
     })
   },
+  bindMovieDetail: function (event) {
+    var id = event.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/movie/movie-detail/movie-detail?id=' + id
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getSubscribeList();
+   
   },
 
   /**
@@ -56,7 +62,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.getSubscribeList();
   },
 
   /**
