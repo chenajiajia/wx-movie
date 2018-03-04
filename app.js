@@ -52,7 +52,7 @@ App({
             if (res.code) {
               //发起网络请求
               wx.request({
-                url: 'http://119.29.32.91:8000/user/getOpenId',
+                url: 'http://127.0.0.1:5000/user/getOpenId',
                 data: {
                   code: res.code
                 },
@@ -70,7 +70,7 @@ App({
                         
                         console.log(id)
                         wx.request({
-                          url: "http://119.29.32.91:8000/user/login",
+                          url: "http://127.0.0.1:5000/user/login",
                           data: { "id": id, "nickName": nickName, "gender": gender, "city": city,"avatarUrl":avatarUrl},
                           success:function(res){
                             wx.setStorage({
@@ -96,7 +96,7 @@ App({
         userInfo: null,
         windowWidth: 0,
         windowHeight: 0,
-        BaseUrl: "http://119.29.32.91:8000",
+        BaseUrl: "http://127.0.0.1:5000",
         subscribe:"/subscription/subscribe",
         dissubscribe:"/subscription/dissubscribe",
         getSubscribe:"/subscription/getSubscription",

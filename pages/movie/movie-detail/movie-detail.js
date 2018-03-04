@@ -61,7 +61,7 @@ Page({
         // }
         // countries = countries.substring(0, countries.length - separate.length);
         readyData["movie"] = {
-          id: data.id,
+          id: data.movieId,
           title: data.title,
           images: data.cover,
           episode: data.episode,

@@ -74,7 +74,7 @@ Page({
       // directors = directors.substring(0, directors.length - separate.length);
        var summary = subject.rating + "分" + separate + subject.showTime ;
       var temp = {
-        id: subject.id,
+        movieId: subject.movieId,
         // casts: subject.casts,
         // collect_count: subject.collect_count,
         // directors: subject.directors,
@@ -95,9 +95,10 @@ Page({
   },
   /** 点击进入搜索条目 */
   handletap: function (event) {
-    var id = event.currentTarget.dataset.id;
+    var movieId = event.currentTarget.dataset.id;
+    console.log('movieId:::::'+movieId)
     wx.redirectTo({
-      url: '/pages/movie/movie-detail/movie-detail?id=' + id
+      url: '/pages/movie/movie-detail/movie-detail?id=' + movieId
     })
   }
 })
