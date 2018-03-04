@@ -2,7 +2,7 @@
 <!--pages/movie/movie-list/movie-list.wxml-->
 <import src="/pages/movie/movie-rating/movie-rating-template.wxml" />
 <template name="movie-list-template">
-  <view class="movie-wrapper" bindtap="bindMovieDetail" data-id="{{id}}">
+  <view class="movie-wrapper" bindtap="bindMovieDetail" data-id="{{movieId}}">
     <view class="movie-content">
       <image class="poster" src="{{cover}}"></image>
       <view class="movie-summary">

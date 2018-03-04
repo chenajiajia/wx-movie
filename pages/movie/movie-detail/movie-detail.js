@@ -79,6 +79,7 @@ Page({
           summary: data.description,
           // shareUrl: data.share_url,
           year: data.showTime,
+          imageUrls: data.imageUrls
         };
         that.setData(readyData);
       },

@@ -44,10 +44,10 @@
   <view class="directors-casts-session">
     <view class="title">影人</view>
     <scroll-view class="directors-casts-scroll" scroll-x="true">
-      <block wx:for="{{movie.directorsAndCasts}}" wx:for-item="item">
+      <block wx:for="{{movie.imageUrls}}" wx:for-item="item">
         <view class="directors-casts-wrapper" bindtap="handleCelebrity" data-id="{{item.id}}" data-avatar="{{item.avatars.large}}">
           <view class="directors-casts-content">
-            <image class="image" src="{{item.avatars.small}}"></image>
+            <image class="image" src="{{item}}"></image>
             <text class="name">{{item.name}}</text>
           </view>
         </view>

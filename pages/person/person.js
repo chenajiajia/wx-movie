@@ -35,6 +35,12 @@ Page({
       }
     })
   },
+  bindMovieDetail: function (event) {
+    var id = event.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/movie/movie-detail/movie-detail?id=' + id
+    });
+  },
   phoneCall:function(){
     wx.makePhoneCall({
       phoneNumber: '18818429638' //仅为示例，并非真实的电话号码
