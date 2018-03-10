@@ -116,6 +116,18 @@
   box-sizing: border-box;
 }
 
+.wish-do-session .get-btn {
+  font-size: 28rpx;
+  color: #de9703;
+  padding:15rpx 30rpx 15rpx 30rpx;
+
+  margin-right: 80rpx;
+  text-align: center;
+  border-radius: 6rpx;
+  border: 1px solid #de9703;
+  box-sizing: border-box;
+}
+
 .wish-do-session .do-btn {
   font-size: 28rpx;
   color: #de9703;

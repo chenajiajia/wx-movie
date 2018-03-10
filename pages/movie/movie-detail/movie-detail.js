@@ -263,6 +263,44 @@ Page({
     }
     
   },
+  /** 用户点击获取播放链接 */
+  handleGetURL: function (event) {
+    var title = event.currentTarget.dataset.id;
+    var url = app.globalData.BaseUrl + app.globalData.getURL;
+    var episode = this.data.movie.episode;
+
+    wx.request({
+      url: url,
+      header: { 'content-type': 'json' },
+      data: { "title":title, "episode":episode },
+      method: "GET",
+      success: function (res) {
+        if (res.data.status == 2) {
+          wx.showToast({
+            title: '暂无此视频播放链接',
+            icon: 'none'
+          })
+        } else {
+          wx.showToast({
+            title: '复制成功',
+          })
+          var data = res.data.data;
+          var url = data.url;
+          console.log(url);
+        }
+
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: res.message,
+        })
+      },
+      complete: function () {
+        //wx.hideLoading();
+      }
+    })
+  },
+
   /** 用户点击看过 */
   handleDotap: function (event) {
     var id = event.currentTarget.dataset.id;

@@ -100,6 +100,7 @@ App({
         subscribe:"/subscription/subscribe",
         dissubscribe:"/subscription/dissubscribe",
         getSubscribe:"/subscription/getSubscription",
+        getURL:"/movie/getURL",
         collect: "/user/collect",
         discollect:"/user/discollect",
         getCollect:'/user/getCollect',
