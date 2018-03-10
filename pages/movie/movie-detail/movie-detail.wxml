@@ -47,13 +47,12 @@
     </block>
   </view>
   <view class="directors-casts-session">
-    <view class="title">影人</view>
+    <view class="title">海报</view>
     <scroll-view class="directors-casts-scroll" scroll-x="true">
       <block wx:for="{{movie.imageUrls}}" wx:for-item="item">
-        <view class="directors-casts-wrapper" bindtap="handleCelebrity" data-id="{{item.id}}" data-avatar="{{item.avatars.large}}">
+        <view class="directors-casts-wrapper" bindtap="bindPoster" data-id="{{item}}" >
           <view class="directors-casts-content">
             <image class="image" src="{{item}}"></image>
-            <text class="name">{{item.name}}</text>
           </view>
         </view>
       </block>

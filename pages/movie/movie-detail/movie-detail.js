@@ -65,19 +65,11 @@ Page({
           title: data.title,
           images: data.cover,
           episode: data.episode,
-          // collectCount: data.collect_count,
-          // commentsCount: data.comments_count,
-          // wishCount: data.wish_count,
-          // reviewsCount: data.reviews_count,
           countries: data.district,
-          // doCount: data.do_count,
-          genres: data.category,
+          genres: "地区" + data.category,
           originalTitle: "原名：" + data.title,
           rating: data.rating,
-          // ratingsCount: data.ratings_count + "人",
-          // subtype: data.subtype,
           summary: data.description,
-          // shareUrl: data.share_url,
           year: data.showTime,
           imageUrls: data.imageUrls
         };
@@ -106,7 +98,8 @@ Page({
   },
   /** 查看海报 */
   bindPoster: function (event) {
-    var posterUrl = event.currentTarget.dataset.posterUrl;
+    var posterUrl = event.currentTarget.dataset.id;
+    console.log("posterUrl-----"+posterUrl)
     wx.navigateTo({
       url: '/pages/movie/movie-detail/movie-poster/movie-poster?posterUrl=' + posterUrl
     });

@@ -31,21 +31,6 @@ App({
     getUserInfo: function (cb) {
         var that = this;
         var id = '';
-        // if (this.globalData.userInfo) {
-        //     typeof cb == "function" && cb(this.globalData.userInfo);
-        // } else {
-        //     //调用登录接口
-        //     wx.login({
-        //         success: function () {
-        //             wx.getUserInfo({
-        //                 success: function (res) {
-        //                     that.globalData.userInfo = res.userInfo;
-        //                     typeof cb == "function" && cb(that.globalData.userInfo);
-        //                 }
-        //             })
-        //         }
-        //     });
-        // }
         wx.login({
           success:function(res){
             
@@ -71,7 +56,8 @@ App({
                         console.log(id)
                         wx.request({
                           url: "http://127.0.0.1:5000/user/login",
-                          data: { "id": id, "nickName": nickName, "gender": gender, "city": city,"avatarUrl":avatarUrl},
+                          data: { "id": id, "nickName": nickName, "gender": gender, "city": city,
+                            "avatarUrl":avatarUrl},
                           success:function(res){
                             wx.setStorage({
                               key: 'userInfo',
