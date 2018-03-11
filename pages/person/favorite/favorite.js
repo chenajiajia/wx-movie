@@ -119,6 +119,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     var id = wx.getStorageSync("openId");
+    console.log('favourite:'+id)
     var url = app.globalData.BaseUrl + app.globalData.getFavorite;
     wx.request({
       url: url,

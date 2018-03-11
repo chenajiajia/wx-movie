@@ -45,7 +45,7 @@ App({
                   console.log(res)
                    id = res.data.data.openid
                    wx.setStorageSync('openId', id)
-                   console.log(wx.getStorageSync('openId'))
+                   console.log('app:'+wx.getStorageSync('openId'))
                     wx.getUserInfo({
                       success:function(res){
                         var nickName = res.userInfo.nickName
@@ -59,6 +59,13 @@ App({
                           data: { "id": id, "nickName": nickName, "gender": gender, "city": city,
                             "avatarUrl":avatarUrl},
                           success:function(res){
+                            console.log(res.data.status)
+                            if(res.data.status == 0){
+                              console.log('first login'+res.status)
+                              wx.navigateTo({
+                                url: '/pages/person/favorite/favorite?id=id',
+                              })
+                            }
                             wx.setStorage({
                               key: 'userInfo',
                               data: res.data,

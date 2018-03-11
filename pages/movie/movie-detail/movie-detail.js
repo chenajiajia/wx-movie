@@ -279,6 +279,9 @@ Page({
           })
           var data = res.data.data;
           var url = data.url;
+          wx.setClipboardData({
+            data: url,
+          })
           console.log(url);
         }
 

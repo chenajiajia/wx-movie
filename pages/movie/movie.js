@@ -44,6 +44,7 @@ Page({
     });
     var that = this;
     var id = wx.getStorageSync("openId");
+    console.log('movie:'+id)
     // 请求电影数据
     wx.request({
       url: url,
