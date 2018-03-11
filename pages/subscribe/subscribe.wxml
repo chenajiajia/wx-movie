@@ -5,7 +5,12 @@
    <image class="poster" src="{{item.cover}}"></image>
    <view class='item-right'>
       <text class='text'>{{item.title}}</text>
-      <text class='text update'> 更新至第{{item.update_episode}}集</text>
+      <view wx:if="{{item.is_update==1}}">
+        <text class='text update1'> 更新至第{{item.update_episode}}集(有更新)</text>
+      </view>
+      <view wx:else>
+        <text class='text update'> 更新至第{{item.update_episode}}集</text>
+      </view>
    </view>
   </view>
 </view>

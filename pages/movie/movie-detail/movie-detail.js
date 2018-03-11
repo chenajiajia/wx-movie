@@ -11,6 +11,7 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;
     var id = options.id;
+    var where = options.from;
     var openId = wx.getStorageSync("openId")
     var url = app.globalData.BaseUrl + app.globalData.subject;
     wx.showToast({
@@ -20,7 +21,7 @@ Page({
     });
     wx.request({
       url: url,
-      data:{"id":openId,"movieId":id},
+      data:{"id":openId,"movieId":id,"from":where},
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       header: { 'content-type': 'json' }, // 设置请求的 header
       success: function (res) {

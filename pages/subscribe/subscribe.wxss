@@ -26,3 +26,7 @@
   font-size: 14px;
   color:#7b7b7b;
 }
+.item  .update1{
+  font-size: 14px;
+  color:#2BB3D5;
+}

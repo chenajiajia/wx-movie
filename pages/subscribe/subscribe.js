@@ -41,7 +41,7 @@ Page({
   bindMovieDetail: function (event) {
     var id = event.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/movie/movie-detail/movie-detail?id=' + id
+      url: '/pages/movie/movie-detail/movie-detail?id=' + id + '&from=sub'
     });
   },
   /**
@@ -87,6 +87,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    this.setData({
+      offset: 0,
+      subscribe: []
+    })
     this.getSubscribeList()
     wx.stopPullDownRefresh()
   },

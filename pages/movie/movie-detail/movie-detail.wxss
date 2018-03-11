@@ -39,6 +39,10 @@
   margin: 30rpx 30rpx 30rpx 30rpx;
 }
 
+.movie-summary .get-btn {
+  color: #de9703;
+}
+
 .movie-summary .name {
   width: 100%;
   color: #4a4a4a;
