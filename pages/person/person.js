@@ -9,6 +9,21 @@ Page({
     collect:[],
     userInfo:null
   },
+  login:function(){
+    console.log('login')
+    wx.openSetting({
+      success(res){
+        app.getUser(function (userInfo) {
+          //更新数据
+          console.log(userInfo);
+          that.setData({
+            userInfo: userInfo
+          });
+        })
+      }
+    })
+   
+  },
   tofavorite:function(){
     wx.navigateTo({
       url: '/pages/person/favorite/favorite',

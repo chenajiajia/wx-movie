@@ -1,6 +1,6 @@
 <!--pages/subscribe/subscribe.wxml-->
 
-<view>
+<view wx:if="{{subscribe.length>0}}">
   <view wx:for="{{subscribe}}" class='item' bindtap="bindMovieDetail" data-id="{{item.movieId}}">
    <image class="poster" src="{{item.cover}}"></image>
    <view class='item-right'>
@@ -14,3 +14,4 @@
    </view>
   </view>
 </view>
+<view wx:else style='text-align:center;margin-top:10px'>暂时没有订阅视频</view>

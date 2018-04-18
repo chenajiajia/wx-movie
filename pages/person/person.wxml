@@ -4,7 +4,12 @@
 <view class="container">
   <scroll-view scroll-y class="content">
     <view class="header">
+    <view wx:if="{{userInfo != null}}">
       <image class="icon" src="{{userInfo.avatarUrl}}"></image>
+    </view>
+    <view wx:else>
+      <button style='width:120px' bindtap='login'>请先登录</button>
+    </view>
       <!-- <text>{{userInfo.nickName}}</text> -->
       <view class='pointgroup'>
       <text class='font12'>{{userInfo.nickName}}</text>
